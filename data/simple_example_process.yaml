@@ -1,0 +1,35 @@
+name: SimpleExampleProcess
+description: Gets the user's name, greets them and compares the values stored in two files
+
+tasks:
+- GetUserName:
+    type: GetNameTask
+    input:
+      url: 'http://api.com'
+      slug: 'get_name'
+- SayHelloToUser:
+    type: TalkToUserTask
+    input:
+      prepend: 'Hello'
+      append: 'Welcome to the show'
+    parent_task_name: GetUserName
+- GetStartingValue:
+    type: GetFileContentsTask
+    input:
+      path: 'starting_value.yaml'
+- GetEndingValue:
+    type: GetFileContentsTask
+    input:
+      path: 'ending_value.yaml'
+- SayGoodbyeToUser:
+    type: TalkToUserTask
+    input:
+      prepend: 'Goodbye'
+      append: 'Hope you enjoyed the show'
+    parent_task_name: GetUserName
+- CompareStartingAndEndingValues:
+    type: CompareValuesTask
+    input:
+      starting_value: GetStartingValue
+      ending_value: GetEndingValue
+    parent_task_name: SayGoodbyeToUser
