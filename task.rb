@@ -82,8 +82,8 @@ module Stepper
   class CompareValuesTask < Task
     def perform
       super()
-      start_val = @process.tasks.select { |t| t.name == @input['starting_value'] }.first.output['value'.to_sym]
-      end_val = @process.tasks.select { |t| t.name == @input['ending_value'] }.first.output['value'.to_sym]
+      start_val = @process.get_task_by_name(@input['starting_value']).output['value'.to_sym]
+      end_val = @process.get_task_by_name(@input['ending_value']).output['value'.to_sym]
       @output = {
         'starting_value': start_val,
         'ending_value': end_val,

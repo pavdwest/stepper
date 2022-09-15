@@ -62,5 +62,9 @@ module Stepper
       end
       puts 'Done!'
     end
+
+    def get_task_by_name(name)
+      @tasks.select { |t| t.name.to_sym == name.to_sym }.first
+    end
   end
 end
