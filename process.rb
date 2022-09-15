@@ -19,6 +19,7 @@ module Stepper
       greet
 
       # Create tasks
+      # TODO: Bulk could probably be moved to the base Task class
       puts 'Deserialising tasks...'
       @tasks = []
       @config['tasks'].each do |t|

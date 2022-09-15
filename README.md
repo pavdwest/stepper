@@ -27,3 +27,16 @@ General:
 # How to run
 
 Just run `stepper.rb` with Ruby
+
+# TODOS
+
+* Multiple Parent Tasks
+* Error checks
+    * Check that references exist
+    * Useful errors
+* Auto task ordering. Maybe just at a very basic level
+* Refactor deserialisation into base Task
+* Bells and whistles
+    * Pretty print output
+    * Summaries
+    * UI
