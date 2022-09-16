@@ -1,4 +1,6 @@
 module Stepper
+  require 'text-table'
+
   class Utils
     def self.get_class_by_name(module_name, class_name)
       Object.const_get(module_name).const_get(class_name)
@@ -26,6 +28,14 @@ module Stepper
       puts character * len
       puts character * 3 + " #{text} " + character * 3
       puts character * len
+    end
+
+    def self.print_hash_as_text_table(hash)
+      table = Text::Table.new(
+        :head => hash.keys,
+        :rows => [hash.values]
+      )
+      puts table
     end
   end
 end

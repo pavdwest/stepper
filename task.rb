@@ -1,5 +1,4 @@
 module Stepper
-  require 'pp'
   require_relative 'mock_endpoints'
 
   class Task
@@ -98,7 +97,7 @@ module Stepper
         'diff_arithmetic': end_val - start_val,
         'diff_geometric': 100.0 * (end_val.to_f / start_val.to_f - 1.0)
       }
-      pp @output
+      Utils.print_hash_as_text_table @output
     end
   end
 end
