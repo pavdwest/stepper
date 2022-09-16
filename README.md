@@ -28,7 +28,8 @@ General:
 
 # How to run
 
-Just run `stepper.rb` with Ruby to see an example
+1. Install gems e.g. `bundle install`
+2. Run `stepper.rb` with Ruby to see an example
 
 # TODOS
 
