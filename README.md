@@ -5,13 +5,13 @@ A very simple sequential, extensible task execution framework.
 
 # Details
 
-* Task (`task.rb`): A small unit of work. In the `process.yaml` each task has:
+* Task (`task.rb`): A small unit of work. In your `process.yaml` each task has:
 
-    * `type`: Name of the class that extends the Task class. Must be exact as class instances are created based on this string
+    * `type`: Task classname. The class must extend the Task class. Instance of the task is created with reflection.
 
     * `input`: A hash object that will be passed into the task constructor. Can contain anything.
 
-    * `parent_task_name`: A reference to the another task instance will automatically be recorded on the relevant task for easy reference. This allows easily using the output of one task in another.
+     * `parent_task_name`: A reference to another task that is part of the process. A reference to that task will be stored on this task which allows easily utilising its output.
 
 * Process: (`process.rb`): A collection of sequential tasks to be performed.
 
@@ -20,17 +20,21 @@ A very simple sequential, extensible task execution framework.
 General:
 
 * Define your process with multiple Tasks
-* Extend `Tasks` class to implement the behaviour of the Tasks
-* Create an instance of `Process` and pass in the process yaml file
+* Extend `Tasks` class to implement the behaviour of your newly defined Tasks
+    * The magic should happen in `perform`
+* Create an instance of `Process` and pass in your process yaml file. Task instances will be created for you.
+* Call `run` on your process instance
 * Profit?
 
 # How to run
 
-Just run `stepper.rb` with Ruby
+Just run `stepper.rb` with Ruby to see an example
 
 # TODOS
 
+* Status & Result fields
 * Multiple Parent Tasks
+* Name passed to init
 * Error checks
     * Check that references exist
     * Useful errors

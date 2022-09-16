@@ -22,23 +22,19 @@ module Stepper
       # TODO: Bulk could probably be moved to the base Task class
       puts 'Deserialising tasks...'
       @tasks = []
-      @config['tasks'].each do |t|
+      @config['tasks'].each_with_index do |t, i|
         task_details = t.values.first
         task_class = Utils.get_class_by_name(
           'Stepper',
           task_details['type']
         )
-        task = task_class.new(task_details['input'])
-        task.name = t.keys.first
+        task = task_class.new(
+          name: t.keys.first,
+          step: i + 1,
+          input_params_hash: task_details['input']
+        )
         parent_task_name = task_details['parent_task_name']
-
-        # Find parent (if any)
-        unless parent_task_name.nil?
-          task.parent = @tasks.select do |t|
-            t.name == parent_task_name
-          end.first
-        end
-
+        task.parent = get_task_by_name(parent_task_name) unless parent_task_name.nil?
         task.process = self
 
         @tasks << task
@@ -49,9 +45,7 @@ module Stepper
     end
 
     def greet
-      puts "=============================================="
-      puts "=== Running process '#{@name}' ==="
-      puts "=============================================="
+      Utils.write_h1 @name
       puts "Description: #{@description}"
     end
 
@@ -61,7 +55,12 @@ module Stepper
         task.perform
         task.finish
       end
+      summarise
       puts 'Done!'
+    end
+
+    def summarise
+      Utils.write_h2 'Summary'
     end
 
     def get_task_by_name(name)

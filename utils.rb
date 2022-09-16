@@ -8,5 +8,24 @@ module Stepper
       filedir = Pathname(file).parent
       File.join(File.expand_path(filedir), relative_path)
     end
+
+    def self.write_h1(text)
+      self.write_header('=', text)
+    end
+
+    def self.write_h2(text)
+      self.write_header('*', text)
+    end
+
+    def self.write_h3(text)
+      self.write_header('-', text)
+    end
+
+    def self.write_header(character, text)
+      len = text.size + 4*2
+      puts character * len
+      puts character * 3 + " #{text} " + character * 3
+      puts character * len
+    end
   end
 end

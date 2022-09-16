@@ -12,20 +12,25 @@ module Stepper
                   :start_time,
                   :end_time
 
-    def initialize(input_params_hash)
-      puts "Init task: #{self.class}"
+    def initialize(
+      name: ,
+      step: ,
+      input_params_hash:
+    )
+      @name = name
+      @step = step
       @input = input_params_hash
+      puts "Init task: #{@name}"
     end
 
     def perform
       @start_time = Time.now.getutc
-      puts '========================='
-      puts "Performing '#{name}'"
+      Utils.write_h2 "Performing '#{name}' (task #{@step} of #{@process.tasks.size})"
     end
 
     def finish
       puts "Finished '#{name}'"
-      puts '========================='
+      puts ''
       @end_time = Time.now.getutc
     end
   end
