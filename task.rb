@@ -1,4 +1,5 @@
 module Stepper
+  require 'pp'
   require_relative 'mock_endpoints'
 
   class Task
@@ -10,7 +11,8 @@ module Stepper
                   :parent,
                   :process,
                   :start_time,
-                  :end_time
+                  :end_time,
+                  :duration
 
     def initialize(
       name: ,
@@ -32,6 +34,7 @@ module Stepper
       puts "Finished '#{name}'"
       puts ''
       @end_time = Time.now.getutc
+      @duration = @end_time - @start_time
     end
   end
 
@@ -95,7 +98,7 @@ module Stepper
         'diff_arithmetic': end_val - start_val,
         'diff_geometric': 100.0 * (end_val.to_f / start_val.to_f - 1.0)
       }
-      puts @output
+      pp @output
     end
   end
 end

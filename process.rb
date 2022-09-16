@@ -60,7 +60,20 @@ module Stepper
     end
 
     def summarise
+      require 'text-table'
       Utils.write_h2 'Summary'
+      puts "Completed #{@tasks.size} tasks."
+
+      rows = []
+      @tasks.each do |t|
+        rows << [t.name, "#{'%.6f' % t.duration}"]
+      end
+
+      table = Text::Table.new(
+        :head => ['Task', 'Duration'],
+        :rows => rows
+      )
+      puts table
     end
 
     def get_task_by_name(name)
