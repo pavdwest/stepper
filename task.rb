@@ -1,6 +1,8 @@
+# All objects are scoped to this module
 module Stepper
   require_relative 'mock_endpoints'
 
+  # A small unit of work.
   class Task
     attr_accessor :name,
                   :input,
@@ -14,8 +16,8 @@ module Stepper
                   :duration
 
     def initialize(
-      name: ,
-      step: ,
+      name:,
+      step:,
       input_params_hash:
     )
       @name = name
@@ -40,6 +42,7 @@ module Stepper
   class CallApiTask < Task
   end
 
+  # Gets a name from an external API
   class GetNameTask < CallApiTask
     def perform
       super()
@@ -56,26 +59,27 @@ module Stepper
     end
   end
 
+  # Reads the contents of a file
   class GetFileContentsTask < Task
     require 'yaml'
 
     def perform
       super()
-      filepath = @input['path']
-      puts "Getting file contents of '#{filepath}'"
+      puts "Getting file contents of '#{@input['path']}'"
 
       # Create output
       @output = {
         'value': YAML.load_file(
           Utils.get_abs_path_from_file(
             @process.config_file_path,
-            filepath
+            @input['path']
           )
         )['value'].to_i
       }
     end
   end
 
+  # Simple example task that outputs some text to the console.
   class TalkToUserTask < Task
     def perform
       super()
@@ -86,6 +90,7 @@ module Stepper
     end
   end
 
+  # Compares two numeric values arithmetically and geometrically
   class CompareValuesTask < Task
     def perform
       super()

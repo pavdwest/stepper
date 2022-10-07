@@ -11,7 +11,7 @@ A very simple sequential, extensible task execution framework.
 
     * `input`: A hash object that will be passed into the task constructor. Can contain anything.
 
-     * `parent_task_name`: A reference to another task that is part of the process. A reference to that task will be stored on this task which allows easily utilising its output.
+     * `parent_task_name`: An optional reference to another task that is part of the process. A reference to that task will be stored on this task which allows easily utilising its output.
 
 * Process: (`process.rb`): A collection of sequential tasks to be performed.
 
